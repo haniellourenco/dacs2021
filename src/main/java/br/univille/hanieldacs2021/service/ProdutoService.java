@@ -7,4 +7,6 @@ import br.univille.hanieldacs2021.model.Produto;
 @Service
 public interface ProdutoService {
     public List<Produto> getAllProdutos();
+
+    public Produto save(Produto produto);
 }

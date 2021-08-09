@@ -59,4 +59,10 @@ public class ProdutoController {
     public ModelAndView alterar(@PathVariable("id") Produto produto) {
         return new ModelAndView("produto/form", "produto", produto);
     }
+
+    @GetMapping(value = "/delete/{id}")
+    public ModelAndView delete(@PathVariable("id") Produto produto) {
+        service.delete(produto);
+        return new ModelAndView("redirect:/produto");
+    }
 }

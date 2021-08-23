@@ -6,27 +6,29 @@
         <div class="container">
 			<nav th:replace="layout :: menu">(menu)</nav>
 
-            <a th:href="@{/produto/novo}" class="btn btn-primary">Novo</a>
+            <a th:href="@{/fornecedor/novo}" class="btn btn-primary">Novo</a>
             
-            <table class="table" id="produtos">
+            <table class="table" id="fornecedores">
                 <thead>
                     <tr>
-                        <th>Descrição</th>
-                        <th>Preço</th>
-                        <th>Data</th>
-                        <th>Categoria</th>
+                        <th>Nome</th>
+                        <th>urlAPI</th>
+                        <th>urlAPIAuth</th>
+                        <th>usuario</th>
+                        <th>senha</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="umproduto : ${listaProdutos}">
-                        <td th:text="${umproduto.descricao}"></td>
-                        <td th:text="${umproduto.preco}"></td>
-                        <td th:text="${umproduto.dataRegistro}"></td>
-                        <td th:text="${umproduto.categoria}"></td>
+                    <tr th:each="umfornecedor : ${listaFornecedores}">
+                        <td th:text="${umfornecedor.nome}"></td>
+                        <td th:text="${umfornecedor.urlAPI}"></td>
+                        <td th:text="${umfornecedor.urlAPIAuth}"></td>
+                        <td th:text="${umfornecedor.usuario}"></td>
+                        <td th:text="${umfornecedor.senha}"></td>
                         <td>
-                            <a th:href="@{'/produto/alterar/'+${umproduto.id}}" class="btn btn-primary">Alterar</a>
-                            <button class="btn btn-danger js-delete" th:data-id="${umproduto.id}">Excluir</button>
+                            <a th:href="@{'/fornecedor/alterar/'+${umfornecedor.id}}" class="btn btn-primary">Alterar</a>
+                            <button class="btn btn-danger js-delete" th:data-id="${umfornecedor.id}">Excluir</button>
                         </td>
                     </tr>
                 </tbody>
@@ -36,15 +38,15 @@
 
         <script type="text/javascript">
             $(document).ready(function(){
-                $("#produtos").on("click", ".js-delete", function(){
+                $("#fornecedores").on("click", ".js-delete", function(){
                     let button = $(this)
                     bootbox.confirm("Você confirma a exclusão do registro?", function(result){
                         if(result){
                             $.ajax({
-                                url: "/produto/delete/" + button.attr("data-id"),
+                                url: "/fornecedor/delete/" + button.attr("data-id"),
                                 method: "GET",
                                 success: function(){
-                                    window.location.href = "/produto/"
+                                    window.location.href = "/fornecedor/"
                                 }
                             })
                         }

@@ -44,7 +44,6 @@ public class ProdutoController {
 
     @GetMapping("/novo")
     public ModelAndView novo(@ModelAttribute Produto produto) {
-
         return new ModelAndView("produto/form");
     }
 

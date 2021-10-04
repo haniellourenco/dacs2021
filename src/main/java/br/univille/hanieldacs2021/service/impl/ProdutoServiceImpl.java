@@ -74,6 +74,7 @@ public class ProdutoServiceImpl implements ProdutoService {
                 e.printStackTrace();
             }
         }
+        return new ArrayList<Produto>();
     }
 
 }

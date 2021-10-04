@@ -6,6 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import br.univille.hanieldacs2021.model.Fornecedor;
 import br.univille.hanieldacs2021.model.Produto;
 import br.univille.hanieldacs2021.service.FornecedorService;
+import br.univille.hanieldacs2021.service.ProdutoService;
 
 @Controller
 @RequestMapping("/import-produto")
@@ -30,6 +32,9 @@ public class ImportadorProdutoController {
 
     @Autowired
     private FornecedorService fornecedorService;
+
+    @Autowired
+    private ProdutoService produtoService;
 
     @GetMapping
     public ModelAndView index(@ModelAttribute Fornecedor fornecedor) {
@@ -40,7 +45,15 @@ public class ImportadorProdutoController {
 
     @PostMapping
     public ModelAndView busca(Fornecedor fornecedor) {
-        System.out.println(fornecedor.getId());
-        return new ModelAndView("/importproduto/index");
+        List<Fornecedor> listaFornecedor = fornecedorService.getAllFornecedores();
+
+        fornecedor = fornecedorService.getFornecedor(fornecedor.getId());
+        List<Produto> listaProduto = produtoService.importProduto(fornecedor);
+
+        HashMap<String, Object> dados = new HashMap<>();
+        dados.put("listafornecedor", listaFornecedor);
+        dados.put("listaproduto", listaProduto);
+
+        return new ModelAndView("/importproduto/index", dados);
     }
 }

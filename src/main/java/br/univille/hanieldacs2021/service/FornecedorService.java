@@ -14,4 +14,6 @@ public interface FornecedorService {
 
     public void delete(Fornecedor fornecedor);
 
+    public Fornecedor getFornecedor(long id);
+
 }
